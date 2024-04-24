@@ -17,13 +17,12 @@ import com.dicoding.asclepius.R
 import com.dicoding.asclepius.databinding.ActivityMainBinding
 import com.dicoding.asclepius.helper.ImageClassifierHelper
 import org.tensorflow.lite.task.vision.classifier.Classifications
-import java.text.NumberFormat
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
     private var currentImageUri: Uri? = null
-    private lateinit var imageClassifierHelper: ImageClassifierHelper // tess
+
+    private lateinit var imageClassifierHelper: ImageClassifierHelper
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun permissionGranted(): Boolean {
-        val requiredPermission = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+        val requiredPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             IMAGE_PERMISSION
         } else {
             EXTERNAL_STORAGE_PERMISSION
@@ -50,8 +49,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //permission check
-        if (!permissionGranted()){
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+        if (!permissionGranted()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 requestPermissionLauncher.launch(IMAGE_PERMISSION)
             } else {
                 requestPermissionLauncher.launch(EXTERNAL_STORAGE_PERMISSION)
@@ -59,7 +58,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.galleryButton.setOnClickListener { startGallery() }
-//        binding.analyzeButton.setOnClickListener { analyzeImage() }
+        binding.analyzeButton.setOnClickListener {
+            currentImageUri?.let {
+                analyzeImage(it)
+            } ?: run {
+                showToast(getString(R.string.empty_image_warning))
+            }
+        }
     }
 
     private fun startGallery() {
@@ -73,7 +78,7 @@ class MainActivity : AppCompatActivity() {
             currentImageUri = uri
             showImage()
         } else {
-            Log.d("Photo Picker", "No media selected")
+            Log.d("Photo Picker", getString(R.string.no_media_selected))
         }
     }
 
@@ -85,38 +90,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun analyzeImage(uri: Uri) {
-        imageClassifierHelper = ImageClassifierHelper(
-            context = this,
-            classifierListener = object : ImageClassifierHelper.ClassifierListener {
-                override fun onError(error: String) {
-                    Toast.makeText(this@MainActivity, error, Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
-                    results?.let { it ->
-                        if (it.isNotEmpty() && it[0].categories.isNotEmpty()) {
-                            println(it)
-                            val categories = it[0].categories[0]
-                            val label = categories.label
-                            val score = categories.score
-
-                            val displayResult = "$label dengan score $score"
-
-                            binding.tvTes.text = displayResult
-                            Log.d("TES", displayResult)
-                        } else {
-                            binding.tvTes.text = "GAGAL"
-                        }
-
-                    }
-                }
-
-            }
-        )
+        moveToResult(uri)
     }
 
-    private fun moveToResult() {
+    private fun moveToResult(uri: Uri) {
         val intent = Intent(this, ResultActivity::class.java)
+        intent.putExtra(ResultActivity.EXTRA_IMAGE_URI,uri.toString())
         startActivity(intent)
     }
 
@@ -124,7 +103,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    companion object{
+    companion object {
         @RequiresApi(Build.VERSION_CODES.TIRAMISU)
         const val IMAGE_PERMISSION = Manifest.permission.READ_MEDIA_IMAGES
         const val EXTERNAL_STORAGE_PERMISSION = Manifest.permission.READ_EXTERNAL_STORAGE
