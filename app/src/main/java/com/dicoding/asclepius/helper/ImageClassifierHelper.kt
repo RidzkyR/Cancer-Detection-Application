@@ -21,8 +21,8 @@ import org.tensorflow.lite.task.vision.classifier.ImageClassifier
 
 
 class ImageClassifierHelper(
-    var threshold: Float = 0.1f,
-    var maxTreshold: Int = 1,
+    private var threshold: Float = 0.1f,
+    private var maxTreshold: Int = 1,
     private val modelName: String = "cancer_classification.tflite",
     private val context: Context,
     val classifierListener: ClassifierListener?
