@@ -45,7 +45,11 @@ class ResultActivity : AppCompatActivity() {
                             val score = categories.score
                             val time = inferenceTime.toString()
 
-                            val displayResult = "Hasil : $label" + "Score: " + NumberFormat.getPercentInstance().format(score).toString() + "$time ms"
+                            val displayResult = """
+                                Hasil : $label
+                                Score: ${NumberFormat.getPercentInstance().format(score)}
+                                Waktu: $time ms
+                                """.trimIndent()
 
                             binding.resultText.text = displayResult
                             Log.d("TES", displayResult)
