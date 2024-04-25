@@ -8,13 +8,13 @@ import kotlinx.parcelize.Parcelize
 
 @Entity
 @Parcelize
-data class HistoryResults (
+data class Analyze (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int = 0,
 
     @ColumnInfo(name = "imageUri")
-    var imageUri: String?,
+    var imageUri: String? = null,
 
     @ColumnInfo(name = "category")
     var category: String? = null,
@@ -24,4 +24,7 @@ data class HistoryResults (
 
     @ColumnInfo(name = "inferenceTime")
     var inferenceTime: String? = null,
+
+    @ColumnInfo(name = "date")
+    var date: String? = null,
 ): Parcelable

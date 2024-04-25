@@ -7,11 +7,11 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface HistoryResultsDao {
+interface AnalyzeDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(historyResults: HistoryResults)
+    fun insert(analyze: Analyze)
 
-    @Query("SELECT * from historyresults ORDER BY id ASC")
-    fun getAllData(): LiveData<List<HistoryResults>>
+    @Query("SELECT * from analyze ORDER BY id ASC")
+    fun getAllData(): LiveData<List<Analyze>>
 
 }

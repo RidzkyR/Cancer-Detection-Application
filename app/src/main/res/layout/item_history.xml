@@ -41,6 +41,29 @@
             card_view:layout_constraintTop_toBottomOf="@id/tv_category"
             tools:text="Score(57%)" />
 
+        <TextView
+            android:id="@+id/tv_inferenceTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            card_view:layout_constraintTop_toBottomOf="@id/tv_score"
+            card_view:layout_constraintStart_toEndOf="@id/iv_image"
+            tools:text="InferenceTime(10s)" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginTop="16dp"
+            android:textStyle="italic"
+            android:gravity="end"
+            card_view:layout_constraintTop_toBottomOf="@id/tv_inferenceTime"
+            card_view:layout_constraintStart_toEndOf="@id/iv_image"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            tools:text="InferenceTime(10s)" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

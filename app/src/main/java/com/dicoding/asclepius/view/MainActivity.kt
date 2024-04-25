@@ -16,13 +16,14 @@ import androidx.core.content.ContextCompat
 import com.dicoding.asclepius.R
 import com.dicoding.asclepius.databinding.ActivityMainBinding
 import com.dicoding.asclepius.helper.ImageClassifierHelper
+import com.dicoding.asclepius.view.adapter.HistoryAdapter
 import org.tensorflow.lite.task.vision.classifier.Classifications
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var imageClassifierHelper: ImageClassifierHelper
     private var currentImageUri: Uri? = null
 
-    private lateinit var imageClassifierHelper: ImageClassifierHelper
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.galleryButton.setOnClickListener { startGallery() }
+        binding.historyButton.setOnClickListener { moveToHistory() }
         binding.analyzeButton.setOnClickListener {
             currentImageUri?.let {
                 analyzeImage(it)
@@ -95,7 +97,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun moveToResult(uri: Uri) {
         val intent = Intent(this, ResultActivity::class.java)
-        intent.putExtra(ResultActivity.EXTRA_IMAGE_URI,uri.toString())
+        intent.putExtra(ResultActivity.EXTRA_IMAGE_URI, uri.toString())
+        startActivity(intent)
+    }
+
+    private fun moveToHistory() {
+        val intent = Intent(this, HistoryActivity::class.java)
         startActivity(intent)
     }
 
