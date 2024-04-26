@@ -1,4 +1,4 @@
-package com.dicoding.asclepius.data.retrofit
+package com.dicoding.asclepius.data.api.retrofit
 
 import com.dicoding.asclepius.BuildConfig
 import okhttp3.OkHttpClient

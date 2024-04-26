@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.asclepius.data.response.ArticlesItem
+import com.dicoding.asclepius.data.api.response.ArticlesItem
 import com.dicoding.asclepius.databinding.ItemNewsBinding
 
 class NewsAdapter : ListAdapter<ArticlesItem, NewsAdapter.ViewHolder>(DIFF_CALLBACK) {

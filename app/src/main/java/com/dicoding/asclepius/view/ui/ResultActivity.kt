@@ -7,30 +7,30 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.asclepius.R
-import com.dicoding.asclepius.database.Analyze
+import com.dicoding.asclepius.data.local.History
 import com.dicoding.asclepius.databinding.ActivityResultBinding
 import com.dicoding.asclepius.helper.DateHelper
 import com.dicoding.asclepius.helper.ImageClassifierHelper
 import com.dicoding.asclepius.helper.ViewModelFactory
-import com.dicoding.asclepius.model.AnalyzeViewModel
+import com.dicoding.asclepius.model.HistoryViewModel
 import org.tensorflow.lite.task.vision.classifier.Classifications
 import java.text.NumberFormat
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
     private lateinit var imageClassifierHelper: ImageClassifierHelper
-    private lateinit var analyzeViewModel: AnalyzeViewModel
-    private var analize : Analyze? = null
+    private lateinit var historyViewModel: HistoryViewModel
+    private var analize : History? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        analyzeViewModel = obtainViewModel(this@ResultActivity)
+        historyViewModel = obtainViewModel(this@ResultActivity)
 
         if (analize != null){
-            analize = Analyze()
+            analize = History()
         }
 
         // get image from uri
@@ -45,7 +45,7 @@ class ResultActivity : AppCompatActivity() {
             analize.let {
                 it?.date = DateHelper.getCurrentDate()
             }
-            analyzeViewModel.insert(analize as Analyze)
+            historyViewModel.insert(analize as History)
             showToast(getString(R.string.data_added))
             finish()
         }
@@ -69,7 +69,7 @@ class ResultActivity : AppCompatActivity() {
                             val score = categories.score
                             val time = inferenceTime.toString()
 
-                            analize = Analyze(
+                            analize = History(
                                 imageUri = uri.toString(),
                                 category = label,
                                 score = score,
@@ -95,9 +95,9 @@ class ResultActivity : AppCompatActivity() {
         imageClassifierHelper.classifyStaticImage(uri)
     }
 
-    private fun obtainViewModel(activity: AppCompatActivity): AnalyzeViewModel {
+    private fun obtainViewModel(activity: AppCompatActivity): HistoryViewModel {
         val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory)[AnalyzeViewModel::class.java]
+        return ViewModelProvider(activity, factory)[HistoryViewModel::class.java]
     }
 
     private fun showToast(message: String) {

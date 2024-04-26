@@ -1,4 +1,4 @@
-package com.dicoding.asclepius.database
+package com.dicoding.asclepius.data.local
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "analiyze")
 @Parcelize
-data class Analyze(
+data class History(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int = 0,

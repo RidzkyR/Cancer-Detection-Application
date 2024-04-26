@@ -17,6 +17,7 @@ import com.dicoding.asclepius.view.adapter.HistoryAdapter
 class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
     private lateinit var adapter: HistoryAdapter
+    private lateinit var historyViewModel: HistoryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +30,6 @@ class HistoryActivity : AppCompatActivity() {
             insets
         }
 
-        with(binding) {
-            homeButton.setOnClickListener { moveToHome() }
-            newsButton.setOnClickListener { moveToNews() }
-        }
-
         val historyViewModel = obtainViewModel(this@HistoryActivity)
 
         historyViewModel.getAllData().observe(this) {
@@ -42,7 +38,7 @@ class HistoryActivity : AppCompatActivity() {
             }
         }
 
-        adapter = HistoryAdapter()
+        adapter = HistoryAdapter(historyViewModel)
 
         val layoutManager = LinearLayoutManager(this)
         binding.rvHistory.layoutManager = layoutManager
@@ -50,6 +46,10 @@ class HistoryActivity : AppCompatActivity() {
         binding.rvHistory.addItemDecoration(itemDecoration)
         binding.rvHistory.adapter = adapter
 
+        with(binding) {
+            homeButton.setOnClickListener { moveToHome() }
+            newsButton.setOnClickListener { moveToNews() }
+        }
     }
 
     private fun obtainViewModel(activity: AppCompatActivity): HistoryViewModel {

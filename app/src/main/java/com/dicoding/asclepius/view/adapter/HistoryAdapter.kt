@@ -6,19 +6,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.dicoding.asclepius.database.Analyze
+import com.dicoding.asclepius.data.local.History
 import com.dicoding.asclepius.databinding.ItemHistoryBinding
 import com.dicoding.asclepius.helper.DiffCallBack
+import com.dicoding.asclepius.model.HistoryViewModel
 import java.text.NumberFormat
 
-class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.AnalizeViewHolder>() {
-    private val listAnalyze = ArrayList<Analyze>()
+class HistoryAdapter(private val historyViewModel: HistoryViewModel) : RecyclerView.Adapter<HistoryAdapter.AnalizeViewHolder>() {
+    private val listHistory = ArrayList<History>()
 
-    fun setListAnalize(listAnalyze: List<Analyze>) {
-        val diffCallback = DiffCallBack(this.listAnalyze, listAnalyze)
+    fun setListAnalize(listHistory: List<History>) {
+        val diffCallback = DiffCallBack(this.listHistory, listHistory)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
-        this.listAnalyze.clear()
-        this.listAnalyze.addAll(listAnalyze)
+        this.listHistory.clear()
+        this.listHistory.addAll(listHistory)
         diffResult.dispatchUpdatesTo(this)
     }
 
@@ -28,23 +29,27 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.AnalizeViewHolder>() 
     }
 
     override fun getItemCount(): Int {
-        return listAnalyze.size
+        return listHistory.size
     }
 
     override fun onBindViewHolder(holder: AnalizeViewHolder, position: Int) {
-        holder.bind(listAnalyze[position])
+        holder.bind(listHistory[position])
     }
 
     inner class AnalizeViewHolder(private val binding: ItemHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(analyze: Analyze) {
-            val score = NumberFormat.getPercentInstance().format(analyze.score).toString()
+        fun bind(history: History) {
+            val score = NumberFormat.getPercentInstance().format(history.score).toString()
             with(binding) {
-                ivImage.setImageURI(Uri.parse(analyze.imageUri))
-                tvCategory.text = "Result : ${analyze.category} (${score})"
-                tvInferenceTime.text = "InferenceTime : ${analyze.inferenceTime}"
-                tvDate.text = "Created at : ${analyze.date}s"
+                ivImage.setImageURI(Uri.parse(history.imageUri))
+                tvCategory.text = "Result : ${history.category} (${score})"
+                tvInferenceTime.text = "InferenceTime : ${history.inferenceTime}"
+                tvDate.text = "Created at : ${history.date}s"
+
+                deleteButton.setOnClickListener {
+                    historyViewModel.delete(history)
+                }
             }
         }
     }

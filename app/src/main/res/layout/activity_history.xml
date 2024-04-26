@@ -37,35 +37,37 @@
         android:layout_marginBottom="24dp"
         android:gravity="center"
         app:icon="@drawable/ic_home"
-        app:iconSize="24dp"
+        app:iconSize="34dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/newsButton"
-        android:layout_width="wrap_content"
+        style="?attr/materialIconButtonOutlinedStyle"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:gravity="center"
-        android:backgroundTint="#5B2292CF"
         android:text="@string/btn_news"
         app:icon="@drawable/ic_news"
         app:iconSize="24dp"
-        app:layout_constraintTop_toTopOf="@id/homeButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/homeButton"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/homeButton" />
 
     <Button
         android:id="@+id/historyButton"
-        android:layout_width="wrap_content"
+        style="?attr/materialIconButtonFilledStyle"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:gravity="center"
         android:text="@string/btn_history"
         app:icon="@drawable/ic_history"
         app:iconSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/homeButton"
         app:layout_constraintTop_toTopOf="@id/homeButton" />

@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.asclepius.data.response.ArticlesItem
-import com.dicoding.asclepius.data.response.NewsResponse
-import com.dicoding.asclepius.data.retrofit.ApiConfig
+import com.dicoding.asclepius.data.api.response.ArticlesItem
+import com.dicoding.asclepius.data.api.response.NewsResponse
+import com.dicoding.asclepius.data.api.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

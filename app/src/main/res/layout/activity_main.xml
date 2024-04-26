@@ -52,7 +52,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="#4BC87F"
         android:text="@string/analyze"
         app:layout_constraintBottom_toTopOf="@id/homeButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,14 +59,13 @@
 
     <Button
         android:id="@+id/homeButton"
+        style="?attr/materialIconButtonFilledStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:gravity="center"
-        android:text="@string/btn_home"
         app:icon="@drawable/ic_home"
-        app:iconSize="24dp"
-        app:layout_constraintTop_toTopOf="@id/historyButton"
+        app:iconSize="34dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -75,27 +73,31 @@
     <Button
         android:id="@+id/newsButton"
         style="?attr/materialIconButtonOutlinedStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:gravity="center"
+        android:text="@string/btn_news"
         app:icon="@drawable/ic_news"
         app:iconSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/homeButton"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/homeButton" />
 
     <Button
         android:id="@+id/historyButton"
         style="?attr/materialIconButtonOutlinedStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:gravity="center"
+        android:text="@string/btn_history"
         app:icon="@drawable/ic_history"
         app:iconSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/homeButton" />
+        app:layout_constraintStart_toEndOf="@id/homeButton"
+        app:layout_constraintTop_toTopOf="@id/homeButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

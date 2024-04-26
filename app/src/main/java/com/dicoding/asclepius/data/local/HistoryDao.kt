@@ -1,17 +1,21 @@
-package com.dicoding.asclepius.database
+package com.dicoding.asclepius.data.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface AnalyzeDao {
+interface HistoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(analyze: Analyze)
+    fun insert(history: History)
+
+    @Delete
+    fun delete(history: History)
 
     @Query("SELECT * FROM analiyze ORDER BY id ASC")
-    fun getAllData(): LiveData<List<Analyze>>
+    fun getAllData(): LiveData<List<History>>
 
 }

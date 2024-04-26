@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.asclepius.R
-import com.dicoding.asclepius.data.response.ArticlesItem
+import com.dicoding.asclepius.data.api.response.ArticlesItem
 import com.dicoding.asclepius.databinding.ActivityNewsBinding
 import com.dicoding.asclepius.model.NewsViewModel
 import com.dicoding.asclepius.view.adapter.NewsAdapter
