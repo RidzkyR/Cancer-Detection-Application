@@ -1,8 +1,8 @@
 package com.dicoding.asclepius.view.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -23,20 +23,28 @@ class NewsActivity : AppCompatActivity() {
         binding = ActivityNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+        with(binding) {
+            homeButton.setOnClickListener { moveToHome() }
+            historyButton.setOnClickListener { moveToHistory() }
+        }
+
+        // setup adapter
         val layoutManager = LinearLayoutManager(this)
         binding.rvNews.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvNews.addItemDecoration(itemDecoration)
 
         //inisialisasi NewsViewModel
-        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(NewsViewModel::class.java)
+        val mainViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        )[NewsViewModel::class.java]
 
         mainViewModel.listNews.observe(this) {
             setNewsData(it)
@@ -53,11 +61,21 @@ class NewsActivity : AppCompatActivity() {
         binding.rvNews.adapter = adapter
     }
 
+    private fun moveToHome() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun moveToHistory() {
+        val intent = Intent(this, HistoryActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
+            binding.progressIndicator.visibility = View.VISIBLE
         } else {
-            binding.progressBar.visibility = View.GONE
+            binding.progressIndicator.visibility = View.GONE
         }
     }
 }

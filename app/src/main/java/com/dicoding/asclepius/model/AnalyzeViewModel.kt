@@ -7,7 +7,7 @@ import com.dicoding.asclepius.repository.AnalyzeRepository
 
 class AnalyzeViewModel(application: Application) : ViewModel() {
     private val mAnalyzeRepository: AnalyzeRepository = AnalyzeRepository(application)
-    fun insert(analyze: Analyze){
+    fun insert(analyze: Analyze) {
         mAnalyzeRepository.insert(analyze)
     }
 }

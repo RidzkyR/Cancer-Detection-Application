@@ -33,7 +33,8 @@ class NewsViewModel : ViewModel() {
                 _isLoading.value = false
                 val responseBody = response.body()
                 if (response.isSuccessful && response.body() != null) {
-                    _listNews.value = (responseBody?.articles?.filterNot { it.title == "[Removed]" })
+                    _listNews.value =
+                        (responseBody?.articles?.filterNot { it.title == "[Removed]" })
                 }
             }
 

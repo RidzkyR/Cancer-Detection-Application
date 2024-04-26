@@ -1,10 +1,8 @@
 package com.dicoding.asclepius.helper
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
-import android.media.Image
 import android.net.Uri
 import android.os.Build
 import android.os.SystemClock
@@ -26,7 +24,7 @@ class ImageClassifierHelper(
     private var maxTreshold: Int = 1,
     private val modelName: String = "cancer_classification.tflite",
     private val context: Context,
-    val classifierListener: ClassifierListener?
+    val classifierListener: ClassifierListener?,
 ) {
     private var imageClassifier: ImageClassifier? = null
 
@@ -49,7 +47,7 @@ class ImageClassifierHelper(
                 modelName,
                 optionBuilder.build()
             )
-        }catch (e: IllegalStateException){
+        } catch (e: IllegalStateException) {
             classifierListener?.onError(context.getString(R.string.image_classifier_failed))
             Log.d(TAG, e.message.toString())
         }
@@ -57,7 +55,7 @@ class ImageClassifierHelper(
 
     fun classifyStaticImage(imageUri: Uri) {
         // TODO: mengklasifikasikan imageUri dari gambar statis.
-        if (imageClassifier == null){
+        if (imageClassifier == null) {
             setupImageClassifier()
         }
 
@@ -66,7 +64,6 @@ class ImageClassifierHelper(
             .add(CastOp(DataType.UINT8))
             .build()
 
-        val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
         val contentResolver = context.contentResolver
 
         // Konversi uri ke bitmap
@@ -74,6 +71,7 @@ class ImageClassifierHelper(
             val source = ImageDecoder.createSource(contentResolver, imageUri)
             ImageDecoder.decodeBitmap(source)
         } else {
+            @Suppress("DEPRECATION")
             MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
         }.copy(Bitmap.Config.ARGB_8888, true)?.let { bitmap ->
             val tensorImage = imageProcessor.process(TensorImage.fromBitmap(bitmap))
@@ -92,11 +90,11 @@ class ImageClassifierHelper(
         fun onError(error: String)
         fun onResults(
             results: List<Classifications>?,
-            inferenceTime: Long
+            inferenceTime: Long,
         )
     }
 
-    companion object{
+    companion object {
         const val TAG = "ImageClassifierHelper"
     }
 }

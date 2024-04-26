@@ -13,4 +13,9 @@
     <string name="score">Confidence Score : %s</string>
     <string name="data_added">Item was successfully added</string>
     <string name="history">History</string>
+    <string name="btn_home">Home</string>
+    <string name="btn_history">History</string>
+    <string name="btn_news">News</string>
+    <string name="hasil">Hasil : %1$s</string>
+    <string name="error_analyze_failed">Analyze Failed</string>
 </resources>

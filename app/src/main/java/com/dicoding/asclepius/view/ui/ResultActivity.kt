@@ -61,7 +61,7 @@ class ResultActivity : AppCompatActivity() {
                 }
 
                 override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
-                    results?.let { it ->
+                    results?.let {
                         if (it.isNotEmpty() && it[0].categories.isNotEmpty()) {
                             println(it)
                             val categories = it[0].categories[0]
@@ -85,7 +85,7 @@ class ResultActivity : AppCompatActivity() {
                             binding.resultText.text = displayResult
                             Log.d("TES", displayResult)
                         } else {
-                            binding.resultText.text = "GAGAL"
+                            showToast(getString(R.string.error_analyze_failed))
                         }
 
                     }
@@ -97,7 +97,7 @@ class ResultActivity : AppCompatActivity() {
 
     private fun obtainViewModel(activity: AppCompatActivity): AnalyzeViewModel {
         val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory).get(AnalyzeViewModel::class.java)
+        return ViewModelProvider(activity, factory)[AnalyzeViewModel::class.java]
     }
 
     private fun showToast(message: String) {

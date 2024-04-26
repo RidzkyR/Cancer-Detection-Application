@@ -23,7 +23,7 @@ class NewsAdapter : ListAdapter<ArticlesItem, NewsAdapter.ViewHolder>(DIFF_CALLB
     }
 
     class ViewHolder(private val binding: ItemNewsBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(articleItem : ArticlesItem) {
+        fun bind(articleItem: ArticlesItem) {
             binding.tvTitle.text = articleItem.title
             binding.tvDescription.text = articleItem.description
             Glide.with(binding.root)

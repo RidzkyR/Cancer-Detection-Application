@@ -11,7 +11,7 @@ data class NewsResponse(
 	val articles: List<ArticlesItem>,
 
 	@field:SerializedName("status")
-	val status: String
+	val status: String,
 )
 
 data class ArticlesItem(
@@ -38,7 +38,7 @@ data class ArticlesItem(
 	val url: String,
 
 	@field:SerializedName("content")
-	val content: String
+	val content: String,
 )
 
 data class Source(
@@ -47,5 +47,5 @@ data class Source(
 	val name: String,
 
 	@field:SerializedName("id")
-	val id: String
+	val id: String,
 )

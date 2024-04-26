@@ -7,17 +7,20 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Analyze::class], version = 1)
 abstract class AnalyzeRoomDatabase : RoomDatabase() {
-    abstract fun historyResultsDao() : AnalyzeDao
+    abstract fun historyResultsDao(): AnalyzeDao
+
     companion object {
         @Volatile
-        private var INSTANCE : AnalyzeRoomDatabase? = null
+        private var INSTANCE: AnalyzeRoomDatabase? = null
 
         @JvmStatic
         fun getDatabase(context: Context): AnalyzeRoomDatabase {
             if (INSTANCE == null) {
                 synchronized(AnalyzeRoomDatabase::class.java) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        AnalyzeRoomDatabase::class.java, "history_database")
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        AnalyzeRoomDatabase::class.java, "history_database"
+                    )
                         .build()
                 }
             }
