@@ -43,7 +43,6 @@ class ResultActivity : AppCompatActivity() {
         // setup save button
         binding.btnSave.setOnClickListener {
             analize.let {
-
                 it?.date = DateHelper.getCurrentDate()
             }
             analyzeViewModel.insert(analize as Analyze)

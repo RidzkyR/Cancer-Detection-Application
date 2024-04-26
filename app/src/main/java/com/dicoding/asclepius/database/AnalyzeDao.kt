@@ -8,7 +8,7 @@ import androidx.room.Query
 
 @Dao
 interface AnalyzeDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(analyze: Analyze)
 
     @Query("SELECT * from analyze ORDER BY id ASC")

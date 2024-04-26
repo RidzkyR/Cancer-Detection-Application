@@ -64,4 +64,7 @@ dependencies {
     //room library
     implementation("androidx.room:room-runtime:2.5.2")
     ksp("androidx.room:room-compiler:2.5.2")
+
+    //uCrop library
+    implementation("com.github.yalantis:ucrop:2.2.8-native")
 }

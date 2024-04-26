@@ -1,6 +1,7 @@
 package com.dicoding.asclepius.helper
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.media.Image
@@ -34,6 +35,7 @@ class ImageClassifierHelper(
     }
 
     private fun setupImageClassifier() {
+        // TODO: Menyiapkan Image Classifier untuk memproses gambar.
         val optionBuilder = ImageClassifier.ImageClassifierOptions.builder()
             .setScoreThreshold(threshold)
             .setMaxResults(maxTreshold)
@@ -54,6 +56,7 @@ class ImageClassifierHelper(
     }
 
     fun classifyStaticImage(imageUri: Uri) {
+        // TODO: mengklasifikasikan imageUri dari gambar statis.
         if (imageClassifier == null){
             setupImageClassifier()
         }
@@ -63,6 +66,7 @@ class ImageClassifierHelper(
             .add(CastOp(DataType.UINT8))
             .build()
 
+        val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
         val contentResolver = context.contentResolver
 
         // Konversi uri ke bitmap
@@ -75,6 +79,7 @@ class ImageClassifierHelper(
             val tensorImage = imageProcessor.process(TensorImage.fromBitmap(bitmap))
             var inferenceTime = SystemClock.uptimeMillis()
             val results = imageClassifier?.classify(tensorImage)
+
             inferenceTime = SystemClock.uptimeMillis() - inferenceTime
             classifierListener?.onResults(
                 results,
